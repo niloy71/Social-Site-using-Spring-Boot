@@ -1,4 +1,4 @@
-package net.codejava;
+package appcontroller.container;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
