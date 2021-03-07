@@ -9,6 +9,16 @@
 	<div class = "container text-center">
 		<div>
 			<h1>Welcome to feed</h1>
+			
+		</div>
+		
+		<div>
+			<form th:action="@{/logout}" method="post">
+				<p>
+					Welcome <b>[[${#request.userPrincipal.principal.FullName}]]</b>
+				</p>
+				<input type="submit" value="Sign Out" />
+			</form>
 		</div>
 		
 	</div>	
