@@ -1,6 +1,10 @@
 package appcontroller.container;
 
+import java.util.List;
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +16,9 @@ public class AppController {
 	
 	@Autowired
 	private UserRepository repo;
+	
+	@Autowired
+	private PostRepository postRepo;
 	
 	@GetMapping("")
 	public String viewHomePage() {
@@ -38,10 +45,30 @@ public class AppController {
 	
 
 	@GetMapping("/feed")
-	public String viewfeed() {
+	public String viewfeed(Model model) {
+		List<postController> feedList = postRepo.findAll();
+		model.addAttribute("feedList", feedList);
+		
+//		List<User> listUsers = repo.findAll();
+//		model.addAttribute("listUsers", listUsers);
+		
+		model.addAttribute("posts", new postController());
 		
 		return "feed";
 	}
+	
+	@PostMapping("/successfully_expose")
+	public String processPost(postController posts) {
+		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		posts.setEmail(auth.getName());
+		
+		postRepo.save(posts);
+		
+		return "post_success";
+	}
+	
+	
 	
 	@GetMapping("/list_users")
 	public String viewUserList() {
