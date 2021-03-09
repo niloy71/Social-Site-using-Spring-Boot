@@ -20,6 +20,10 @@ public class AppController {
 	@Autowired
 	private PostRepository postRepo;
 	
+	@Autowired
+	private CommentRepository commentRepo;
+	
+	
 	@GetMapping("")
 	public String viewHomePage() {
 		return "index";
@@ -51,6 +55,7 @@ public class AppController {
 		
 		model.addAttribute("posts", new postController());
 		
+		model.addAttribute("comments", new commentController());
 		
 		
 		return "feed";
@@ -66,6 +71,20 @@ public class AppController {
 		posts.setFullName(user.getFirstName()+" "+user.getLastName());
 		
 		postRepo.save(posts);
+		
+		return "redirect:feed";
+	}
+	
+	@PostMapping("/successfully_comment")
+	public String processComment(commentController comments) {
+		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = repo.findByEmail(auth.getName());
+		
+		comments.setEmail(auth.getName());
+		
+		comments.setFullName(user.getFirstName()+" "+user.getLastName());
+		comments.setPostId((long) 1);
+		commentRepo.save(comments);
 		
 		return "redirect:feed";
 	}

@@ -28,6 +28,9 @@ public class UserRepositoryTests {
 	private PostRepository postRepo;
 	
 	@Autowired
+	private CommentRepository commentRepo;
+	
+	@Autowired
 	private TestEntityManager entityManager;
 	
 	@Test
@@ -58,7 +61,6 @@ public class UserRepositoryTests {
 		postController posts = new postController();
 		posts.setEmail("zxc1231212@gmail.com");
 		posts.setFullName("zxc one");
-//		posts.setLastName("one");
 		posts.setPosts("Hello Test");
 		
 		postController savedPost = postRepo.save(posts);
@@ -68,4 +70,21 @@ public class UserRepositoryTests {
 
 		
 	}
+	
+	@Test
+	public void testcomment() {
+		commentController comments = new commentController();
+		comments.setEmail("zxc1231212@gmail.com");
+		comments.setFullName("zxc one");
+		comments.setComment("Hello Test");
+		comments.setPostId((long) 1);
+		
+		commentController savedPost = commentRepo.save(comments);
+		commentController existPost = entityManager.find(commentController.class, savedPost.getId());
+		
+		assertThat(existPost.getEmail()).isEqualTo(comments.getEmail());
+
+		
+	}
+	
 }

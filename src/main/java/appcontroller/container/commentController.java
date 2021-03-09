@@ -7,16 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 @Entity
-@Table(name = "feeds")
-public class postController {
+@Table(name = "comments")
+public class commentController {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -25,38 +18,54 @@ public class postController {
 	private String email;
 	
 	@Column(nullable = false, length = 6400)
-	private String posts;
+	private String comment;
 	
 	@Column(nullable = false, length = 60)
 	private String fullName;
 	
+	@Column(nullable = false)
+	private Long postId;
 
-	
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getPosts() {
-		return posts;
+	public String getComment() {
+		return comment;
 	}
-	public void setPosts(String posts) {
-		this.posts = posts;
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
+
 	public String getFullName() {
 		return fullName;
 	}
+
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+	public Long getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+	
 	
 	
 	

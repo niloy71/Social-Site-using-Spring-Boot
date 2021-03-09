@@ -27,7 +27,7 @@
 			<div class="m-3">
 				<div class = "form-group col">
 					<div>
-						<label> Expose Something</label>
+						<label>Expose Something</label>
 					</div>
 <!-- 					<div class="col-4"> -->
 					<div>
@@ -43,13 +43,30 @@
 	
 	
 	<div>
-		<ul style="list-style: none;">
-			<tr th:each="feed: ${feedList}">
+		<ul style="list-style: none;" th:each="feed: ${feedList}">
 				<li style ="margin-bottom: 50px;">
 					<b><p th:text="${feed.fullName}"></p></b>
 					<p th:text="${feed.posts}"></p>
+					
+					<form th:action="@{/successfully_comment}" method = "post" th:object="${comments}">
+						<div class="m-3">
+							<div class = "form-group col">
+								<div>
+									<input type="text" class="form-control" th:field="*{comment}" required/>
+								</div>
+								<div>
+									<input type="long" class="form-control" th:field="*{postId}" value= required/>
+								</div>
+								<div>		
+									<button type="submit" class="btn btn-primary">Comment</button>			
+								</div>
+								<div>
+									<p th:text="${feed.id}"></p>
+								</div>
+							</div>
+						</div>
+					</form>
 				</li>
-			</tr>
 		</ul>
 	</div>
 
