@@ -57,9 +57,9 @@ public class UserRepositoryTests {
 	public void testFeed() {
 		postController posts = new postController();
 		posts.setEmail("zxc1231212@gmail.com");
-//		posts.setFirstName("zxc");
+		posts.setFullName("zxc one");
 //		posts.setLastName("one");
-		posts.setPosts("Hello Test3");
+		posts.setPosts("Hello Test");
 		
 		postController savedPost = postRepo.save(posts);
 		postController existPost = entityManager.find(postController.class, savedPost.getId());

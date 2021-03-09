@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "feed")
+@Table(name = "feeds")
 public class postController {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,9 @@ public class postController {
 	
 	@Column(nullable = false, length = 6400)
 	private String posts;
+	
+	@Column(nullable = false, length = 60)
+	private String fullName;
 	
 //	@Column(nullable = false, length = 20)
 //	private String firstName;
@@ -63,6 +66,13 @@ public class postController {
 	public void setPosts(String posts) {
 		this.posts = posts;
 	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	
 	
 	
 }

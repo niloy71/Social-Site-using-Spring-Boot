@@ -49,10 +49,9 @@ public class AppController {
 		List<postController> feedList = postRepo.findAll();
 		model.addAttribute("feedList", feedList);
 		
-//		List<User> listUsers = repo.findAll();
-//		model.addAttribute("listUsers", listUsers);
-		
 		model.addAttribute("posts", new postController());
+		
+		
 		
 		return "feed";
 	}
@@ -60,12 +59,15 @@ public class AppController {
 	@PostMapping("/successfully_expose")
 	public String processPost(postController posts) {
 		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
+		User user = repo.findByEmail(auth.getName());
+		
 		posts.setEmail(auth.getName());
+		
+		posts.setFullName(user.getFirstName()+" "+user.getLastName());
 		
 		postRepo.save(posts);
 		
-		return "post_success";
+		return "redirect:feed";
 	}
 	
 	

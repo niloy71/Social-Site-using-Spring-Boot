@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="ISO-8859-1">
-	<title>All Users</title>
+	<title>Feed</title>
 	<link rel = "stylesheet" type = "text/css" href = "/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-	<div class = "container text-center">
-		<div>
-			<h1>Welcome to feed</h1>
+	<div class = "form-group row">
+		<div class = "container text-center">
+			<h1>Welcome to Exposer</h1>
 			
 		</div>
 		
 		<div>
 			<form th:action="@{/logout}" method="post">
 				<p>
-					Welcome <b>[[${#request.userPrincipal.principal.FullName}]]</b>
+					<b>[[${#request.userPrincipal.principal.FullName}]]</b>
 				</p>
 				<input type="submit" value="Sign Out" />
 			</form>
@@ -25,53 +25,33 @@
 	<div>
 		<form th:action="@{/successfully_expose}" method = "post" th:object="${posts}">
 			<div class="m-3">
-				<div class = "form-group row">
-					<label>Expose Something</label>
-					<div class="col-8">
+				<div class = "form-group col">
+					<div>
+						<label> Expose Something</label>
+					</div>
+<!-- 					<div class="col-4"> -->
+					<div>
 						<input type="text" class="form-control" th:field="*{posts}" required/>
-					</div>		
-					<button type="submit" class="btn btn-primary">Expose</button>			
+					</div>
+					<div>		
+						<button type="submit" class="btn btn-primary">Expose</button>			
+					</div>
 				</div>
 			</div>
 		</form>
 	</div>
 	
-	<div>
-		<table class="table table-striped table-bordered">
-			<thead class="thead-dark">
-				<tr>
-					<th>Email</th>
-					<th>exposure</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="feed: ${feedList}">
-					<td th:text="${feed.email}">User ID</td>
-					<td th:text="${feed.posts}">Email</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
 	
-<!-- 	<div> -->
-<!-- 		<table class="table table-striped table-bordered"> -->
-<!-- 			<thead class="thead-dark"> -->
-<!-- 				<tr> -->
-<!-- 					<th>User id</th> -->
-<!-- 					<th>Email</th> -->
-<!-- 					<th>First Name</th> -->
-<!-- 					<th>Last Name</th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody> -->
-<!-- 				<tr th:each="user: ${listUsers}"> -->
-<!-- 					<td th:text="${user.id}">User ID</td> -->
-<!-- 					<td th:text="${user.email}">Email</td> -->
-<!-- 					<td th:text="${user.firstName}">First Name</td> -->
-<!-- 					<td th:text="${user.lastName}">Last Name</td> -->
-<!-- 				</tr> -->
-<!-- 			</tbody> -->
-<!-- 		</table> -->
-<!-- 	</div> -->
+	<div>
+		<ul style="list-style: none;">
+			<tr th:each="feed: ${feedList}">
+				<li style ="margin-bottom: 50px;">
+					<b><p th:text="${feed.fullName}"></p></b>
+					<p th:text="${feed.posts}"></p>
+				</li>
+			</tr>
+		</ul>
+	</div>
+
 </body>
 </html>
