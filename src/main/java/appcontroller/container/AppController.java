@@ -50,12 +50,15 @@ public class AppController {
 
 	@GetMapping("/feed")
 	public String viewfeed(Model model) {
-		List<postController> feedList = postRepo.findAll();
-		model.addAttribute("feedList", feedList);
-		
 		model.addAttribute("posts", new postController());
+
+		List<postController> feedList = postRepo.findAll();
+		model.addAttribute("feedList", feedList);		
 		
 		model.addAttribute("comments", new commentController());
+		
+		List<commentController> commentList = commentRepo.findAll();
+		model.addAttribute("commentList", commentList);		
 		
 		
 		return "feed";
@@ -76,14 +79,15 @@ public class AppController {
 	}
 	
 	@PostMapping("/successfully_comment")
-	public String processComment(commentController comments) {
+	public String processComment(commentController comments, postController posts) {
 		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = repo.findByEmail(auth.getName());
 		
 		comments.setEmail(auth.getName());
 		
 		comments.setFullName(user.getFirstName()+" "+user.getLastName());
-		comments.setPostId((long) 1);
+//		comments.setPostId((long) 1);
+		//comments.setPostId(posts.getId());
 		commentRepo.save(comments);
 		
 		return "redirect:feed";

@@ -44,29 +44,33 @@
 	
 	<div>
 		<ul style="list-style: none;" th:each="feed: ${feedList}">
-				<li style ="margin-bottom: 50px;">
-					<b><p th:text="${feed.fullName}"></p></b>
-					<p th:text="${feed.posts}"></p>
-					
-					<form th:action="@{/successfully_comment}" method = "post" th:object="${comments}">
-						<div class="m-3">
-							<div class = "form-group col">
-								<div>
-									<input type="text" class="form-control" th:field="*{comment}" required/>
-								</div>
-								<div>
-									<input type="long" class="form-control" th:field="*{postId}" value= required/>
-								</div>
-								<div>		
-									<button type="submit" class="btn btn-primary">Comment</button>			
-								</div>
-								<div>
-									<p th:text="${feed.id}"></p>
-								</div>
+			<li style ="margin-bottom: 50px;">
+				<b><p th:text="${feed.fullName}"></p></b>
+				<p th:text="${feed.posts}"></p>
+				
+				<form th:action="@{/successfully_comment}" method = "post" th:object="${comments}">
+					<div class="m-3">
+						<div class = "form-group col">
+							<div>
+								<input type="text" class="form-control" th:field="*{comment}" required/>
+							</div>
+							<div>
+									<input type="hidden" class="form-control" name="postId" th:value="${feed.id}"/>
+							</div>
+							<div>		
+								<button type="submit" class="btn btn-primary">Comment</button>			
 							</div>
 						</div>
-					</form>
-				</li>
+					</div>
+				</form>
+				
+				<ul style="list-style: none;" th:each="comment: ${commentList}"  th:if="${comment.postId} == ${feed.id}">
+					<li style ="margin-bottom: 5px;" class = "form-group row">
+						<b><p th:text="${comment.fullName}"></p></b>
+						<p th:text="${comment.comment}" style ="margin-left: 25px;"></p>
+					</li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 
