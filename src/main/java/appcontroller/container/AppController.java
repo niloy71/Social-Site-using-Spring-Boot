@@ -1,5 +1,6 @@
 package appcontroller.container;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -22,6 +23,9 @@ public class AppController {
 	
 	@Autowired
 	private CommentRepository commentRepo;
+	
+	@Autowired
+	private RepliesOfCommentREpository replyRepo;
 	
 	
 	@GetMapping("")
@@ -53,12 +57,20 @@ public class AppController {
 		model.addAttribute("posts", new postController());
 
 		List<postController> feedList = postRepo.findAll();
+        Collections.reverse(feedList);
 		model.addAttribute("feedList", feedList);		
+
 		
 		model.addAttribute("comments", new commentController());
 		
 		List<commentController> commentList = commentRepo.findAll();
 		model.addAttribute("commentList", commentList);		
+		
+		
+		model.addAttribute("replies", new RepliesOfCommentController());
+		
+		List<RepliesOfCommentController> replyList = replyRepo.findAll();
+		model.addAttribute("replyList", replyList);		
 		
 		
 		return "feed";
@@ -84,20 +96,23 @@ public class AppController {
 		User user = repo.findByEmail(auth.getName());
 		
 		comments.setEmail(auth.getName());
-		
 		comments.setFullName(user.getFirstName()+" "+user.getLastName());
-//		comments.setPostId((long) 1);
-		//comments.setPostId(posts.getId());
+
 		commentRepo.save(comments);
 		
 		return "redirect:feed";
 	}
 	
-	
-	
-	@GetMapping("/list_users")
-	public String viewUserList() {
+	@PostMapping("/successfully_replied")
+	public String processReply(RepliesOfCommentController replies) {
+		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = repo.findByEmail(auth.getName());
 		
-		return "users";
+		replies.setEmail(auth.getName());
+		replies.setFullName(user.getFirstName()+" "+user.getLastName());
+
+		replyRepo.save(replies);
+		
+		return "redirect:feed";
 	}
 }

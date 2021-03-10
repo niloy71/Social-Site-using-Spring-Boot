@@ -31,6 +31,9 @@ public class UserRepositoryTests {
 	private CommentRepository commentRepo;
 	
 	@Autowired
+	private RepliesOfCommentREpository repliesRepo;
+	
+	@Autowired
 	private TestEntityManager entityManager;
 	
 	@Test
@@ -74,15 +77,31 @@ public class UserRepositoryTests {
 	@Test
 	public void testcomment() {
 		commentController comments = new commentController();
-		comments.setEmail("zxc1231212@gmail.com");
+		comments.setEmail("zxc123@gmail.com");
 		comments.setFullName("zxc one");
 		comments.setComment("Hello Test");
-		comments.setPostId((long) 1);
+		comments.setPostId((long) 4);
 		
-		commentController savedPost = commentRepo.save(comments);
-		commentController existPost = entityManager.find(commentController.class, savedPost.getId());
+		commentController savedComment = commentRepo.save(comments);
+		commentController existComment = entityManager.find(commentController.class, savedComment.getId());
 		
-		assertThat(existPost.getEmail()).isEqualTo(comments.getEmail());
+		assertThat(existComment.getEmail()).isEqualTo(comments.getEmail());
+
+		
+	}
+	
+	@Test
+	public void testreply() {
+		RepliesOfCommentController replies = new RepliesOfCommentController();
+		replies.setEmail("zxc123@gmail.com");
+		replies.setFullName("zxc one");
+		replies.setReply("Hello Test");
+		replies.setCommentId((long) 1);
+		
+		RepliesOfCommentController savedReplies = repliesRepo.save(replies);
+		RepliesOfCommentController existReplies = entityManager.find(RepliesOfCommentController.class, savedReplies.getId());
+		
+		assertThat(existReplies.getEmail()).isEqualTo(replies.getEmail());
 
 		
 	}

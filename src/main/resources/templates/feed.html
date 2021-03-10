@@ -45,6 +45,7 @@
 	<div>
 		<ul style="list-style: none;" th:each="feed: ${feedList}">
 			<li style ="margin-bottom: 50px;">
+				
 				<b><p th:text="${feed.fullName}"></p></b>
 				<p th:text="${feed.posts}"></p>
 				
@@ -66,8 +67,37 @@
 				
 				<ul style="list-style: none;" th:each="comment: ${commentList}"  th:if="${comment.postId} == ${feed.id}">
 					<li style ="margin-bottom: 5px;" class = "form-group row">
+						
 						<b><p th:text="${comment.fullName}"></p></b>
-						<p th:text="${comment.comment}" style ="margin-left: 25px;"></p>
+						
+						<div class = "form-group col">
+							<p th:text="${comment.comment}" style ="margin-left: 25px;"></p>
+						
+							<form th:action="@{/successfully_replied}" method = "post" th:object="${replies}">
+								<div class="m-3">
+									<div class = "form-group col">
+										<div>
+											<input type="text" class="form-control" th:field="*{reply}" required/>
+										</div>
+										<div>
+											<input type="hidden" class="form-control" name="commentId" th:value="${comment.Id}"/>
+										</div>
+										<div>		
+											<button type="submit" class="btn btn-primary">Reply</button>			
+										</div>
+									</div>
+								</div>
+							</form>
+							
+							<ul style="list-style: none;" th:each="replylist: ${replyList}"  th:if="${replylist.commentId} == ${comment.id}">
+								<li style ="margin-bottom: 5px;" class = "form-group row">
+									<b><p th:text="${replylist.fullName}"></p></b>
+									<p th:text="${replylist.reply}" style ="margin-left: 25px;"></p>
+												
+								</li>
+							</ul>
+						</div>
+						
 					</li>
 				</ul>
 			</li>
