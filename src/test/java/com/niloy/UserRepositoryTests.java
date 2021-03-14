@@ -1,7 +1,8 @@
-package appcontroller.container;
+package com.niloy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.niloy.model.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -9,11 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
-
-import appcontroller.container.PostRepository;
-import appcontroller.container.User;
-import appcontroller.container.UserRepository;
-import appcontroller.container.postController;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -25,7 +21,7 @@ public class UserRepositoryTests {
 	
 
 	@Autowired
-	private PostRepository postRepo;
+	private FeedRepository postRepo;
 	
 	@Autowired
 	private CommentRepository commentRepo;
@@ -61,13 +57,13 @@ public class UserRepositoryTests {
 	
 	@Test
 	public void testFeed() {
-		postController posts = new postController();
+		Feed posts = new Feed();
 		posts.setEmail("zxc1231212@gmail.com");
 		posts.setFullName("zxc one");
 		posts.setPosts("Hello Test");
 		
-		postController savedPost = postRepo.save(posts);
-		postController existPost = entityManager.find(postController.class, savedPost.getId());
+		Feed savedPost = postRepo.save(posts);
+		Feed existPost = entityManager.find(Feed.class, savedPost.getId());
 		
 		assertThat(existPost.getEmail()).isEqualTo(posts.getEmail());
 
@@ -76,14 +72,14 @@ public class UserRepositoryTests {
 	
 	@Test
 	public void testcomment() {
-		commentController comments = new commentController();
+		Comment comments = new Comment();
 		comments.setEmail("zxc123@gmail.com");
 		comments.setFullName("zxc one");
 		comments.setComment("Hello Test");
 		comments.setPostId((long) 4);
 		
-		commentController savedComment = commentRepo.save(comments);
-		commentController existComment = entityManager.find(commentController.class, savedComment.getId());
+		Comment savedComment = commentRepo.save(comments);
+		Comment existComment = entityManager.find(Comment.class, savedComment.getId());
 		
 		assertThat(existComment.getEmail()).isEqualTo(comments.getEmail());
 
@@ -92,14 +88,14 @@ public class UserRepositoryTests {
 	
 	@Test
 	public void testreply() {
-		RepliesOfCommentController replies = new RepliesOfCommentController();
+		RepliesOfComment replies = new RepliesOfComment();
 		replies.setEmail("zxc123@gmail.com");
 		replies.setFullName("zxc one");
 		replies.setReply("Hello Test");
 		replies.setCommentId((long) 1);
 		
-		RepliesOfCommentController savedReplies = repliesRepo.save(replies);
-		RepliesOfCommentController existReplies = entityManager.find(RepliesOfCommentController.class, savedReplies.getId());
+		RepliesOfComment savedReplies = repliesRepo.save(replies);
+		RepliesOfComment existReplies = entityManager.find(RepliesOfComment.class, savedReplies.getId());
 		
 		assertThat(existReplies.getEmail()).isEqualTo(replies.getEmail());
 

@@ -1,4 +1,4 @@
-package appcontroller.container;
+package com.niloy.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package appcontroller.container;
+package com.niloy.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "feeds")
-public class postController {
+public class Feed {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

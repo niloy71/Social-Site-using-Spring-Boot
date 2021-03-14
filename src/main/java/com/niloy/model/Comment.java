@@ -1,4 +1,4 @@
-package appcontroller.container;
+package com.niloy.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,23 +8,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "replies")
-public class RepliesOfCommentController {
+@Table(name = "comments")
+public class Comment {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
-	
+
 	@Column(nullable = false, length = 6400)
-	private String reply;
-	
+	private String comment;
+
 	@Column(nullable = false, length = 60)
 	private String fullName;
-	
+
 	@Column(nullable = false)
-	private Long commentId;
+	private Long postId;
 
 	public Long getId() {
 		return id;
@@ -42,12 +43,12 @@ public class RepliesOfCommentController {
 		this.email = email;
 	}
 
-	public String getReply() {
-		return reply;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setReply(String reply) {
-		this.reply = reply;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public String getFullName() {
@@ -58,13 +59,12 @@ public class RepliesOfCommentController {
 		this.fullName = fullName;
 	}
 
-	public Long getCommentId() {
-		return commentId;
+	public Long getPostId() {
+		return postId;
 	}
 
-	public void setCommentId(Long commentId) {
-		this.commentId = commentId;
+	public void setPostId(Long postId) {
+		this.postId = postId;
 	}
-	
-	
+
 }

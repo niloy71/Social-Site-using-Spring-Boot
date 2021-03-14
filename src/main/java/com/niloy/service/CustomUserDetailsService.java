@@ -1,5 +1,7 @@
-package appcontroller.container;
+package com.niloy.service;
 
+import com.niloy.model.User;
+import com.niloy.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,14 +11,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository repo;
+
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
 		User user = repo.findByEmail(email);
-		if(user == null) {
+		if (user == null) {
 			throw new UsernameNotFoundException("User not found");
 		}
 		return new CustomUserDetails(user);
 	}
-
 }
