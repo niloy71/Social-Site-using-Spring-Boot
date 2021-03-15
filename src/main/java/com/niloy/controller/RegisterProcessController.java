@@ -1,7 +1,7 @@
 package com.niloy.controller;
 
 import com.niloy.model.User;
-import com.niloy.model.UserRepository;
+import com.niloy.model.dataacceessobject.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;

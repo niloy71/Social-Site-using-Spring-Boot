@@ -1,7 +1,7 @@
 package com.niloy.service;
 
 import com.niloy.model.User;
-import com.niloy.model.UserRepository;
+import com.niloy.model.dataacceessobject.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

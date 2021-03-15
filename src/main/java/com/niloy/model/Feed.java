@@ -20,18 +20,16 @@ public class Feed {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
-	
+
 	@Column(nullable = false, length = 6400)
 	private String posts;
-	
+
 	@Column(nullable = false, length = 60)
 	private String fullName;
-	
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -44,7 +42,6 @@ public class Feed {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPosts() {
 		return posts;
 	}
@@ -57,7 +54,4 @@ public class Feed {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	
-	
-	
 }

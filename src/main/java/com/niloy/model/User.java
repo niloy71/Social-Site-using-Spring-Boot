@@ -13,19 +13,19 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
-	
+
 	@Column(nullable = false, length = 64)
 	private String password;
-	
+
 	@Column(nullable = false, length = 20)
 	private String firstName;
-	
+
 	@Column(nullable = false, length = 20)
 	private String lastName;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -56,5 +56,4 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 }

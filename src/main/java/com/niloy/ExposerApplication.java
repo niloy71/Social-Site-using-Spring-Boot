@@ -9,5 +9,4 @@ public class ExposerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ExposerApplication.class, args);
 	}
-
 }
